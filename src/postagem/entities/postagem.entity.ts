@@ -18,8 +18,8 @@ export class Postagem {
     titulo: string
 
     @IsNotEmpty()
-    @MaxLength(255)
-    @Column({length: 255, nullable: false})
+    @MaxLength(1000)
+    @Column({length: 1000, nullable: false})
     @ApiProperty()
     conteudo: string
 

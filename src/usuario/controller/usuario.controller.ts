@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { JwtAuthGuard } from "src/auth/guard/jwt-auth.guard";
 import { Usuario } from "../entities/usuario.entity";
@@ -17,6 +17,14 @@ export class UsuarioController {
 findAll(): Promise <Usuario[]> {
     return this.usuarioService.findAll()
 }
+
+@UseGuards(JwtAuthGuard)
+@HttpCode(HttpStatus.OK)
+@Get("/:id")
+findById(@Param('id', ParseIntPipe) id: number): Promise<Usuario> {
+    return this.usuarioService.findById(id)
+}
+    
 
 @UseGuards(JwtAuthGuard)
 @Get('/usuario/:usuario')
@@ -44,4 +52,12 @@ async create(@Body() usuario: Usuario): Promise<Usuario> {
 async update (@Body() usuario: Usuario): Promise<Usuario> {
     return this.usuarioService.update(usuario)
 }
+
+@UseGuards(JwtAuthGuard)
+@Delete ('/:id')
+@HttpCode (HttpStatus.NO_CONTENT)
+delete (@Param('id', ParseIntPipe) id: number) {
+    return this.usuarioService.delete(id)
+}
+
 }

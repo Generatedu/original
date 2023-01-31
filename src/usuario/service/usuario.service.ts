@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Bcrypt } from "src/auth/bcrypt/bcrypt";
-import { ILike, Repository } from "typeorm";
+import { DeleteResult, ILike, Repository } from "typeorm";
 import { Usuario } from "../entities/usuario.entity";
 
 @Injectable()
@@ -82,4 +82,12 @@ async update (usuario: Usuario): Promise<Usuario> {
     usuario.senha = await this.bcrypt.criptografarSenha(usuario.senha)
     return await this.usuarioRepository.save(usuario)
 }
+
+async delete (id: number): Promise<DeleteResult> {
+    let buscarUsuario = await this.findById(id)
+    if(!buscarUsuario)
+        throw new HttpException('Usuário não encontrado', HttpStatus.NOT_FOUND)
+    return await this.usuarioRepository.delete(id)
+}
+
 }

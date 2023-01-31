@@ -8,7 +8,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
   .setTitle('Projeto Generatedu')
   .setDescription('Projeto Integrador Generatedu')
-  .setContact('Generation Brasil','http://www.generationbrasil.online','generataeduprojeto@gmail.com')
+  .setContact('Equipe 2 - Generation', 'https://github.com/Generatedu', 'generateduprojeto@gmail.com')
   .setVersion('1.0')
   .addBearerAuth()
   .build();
